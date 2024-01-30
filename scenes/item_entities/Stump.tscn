@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://bab1jlojllwsr"]
+
+[ext_resource type="Script" path="res://scripts/registries/ItemEntity.gd" id="1_pshjm"]
+[ext_resource type="Shader" path="res://shaders/item.gdshader" id="3_hr23r"]
+[ext_resource type="Texture2D" uid="uid://cvp0dcilhq457" path="res://stump.png" id="3_orc0l"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rd4jj"]
+size = Vector2(20, 16.5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pdqt5"]
+shader = ExtResource("3_hr23r")
+
+[node name="Stump" type="Area2D"]
+script = ExtResource("1_pshjm")
+item_name = "stump"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_rd4jj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_pdqt5")
+texture = ExtResource("3_orc0l")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[node name="TangibleTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+autostart = true
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="TangibleTimer" to="." method="_on_tangible_timer_timeout"]

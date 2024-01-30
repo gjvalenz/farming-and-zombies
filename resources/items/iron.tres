@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://t6yt1xx55dyb"]
+
+[ext_resource type="PackedScene" uid="uid://do5e78cq55dwu" path="res://scenes/item_entities/Iron.tscn" id="1_rfhhe"]
+[ext_resource type="Script" path="res://scripts/registries/Item.gd" id="1_smau3"]
+
+[resource]
+script = ExtResource("1_smau3")
+name = "iron"
+display_name = "Iron"
+item_entity = ExtResource("1_rfhhe")

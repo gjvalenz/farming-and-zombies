@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://btv0rsqrhxtnf"]
+
+[ext_resource type="Script" path="res://scripts/registries/ItemEntity.gd" id="1_l4g47"]
+
+[node name="IItemEntity" type="Area2D"]
+script = ExtResource("1_l4g47")
+
+[node name="DieTimer" type="Timer" parent="."]
+
+[node name="TangibleTimer" type="Timer" parent="."]
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="DieTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="TangibleTimer" to="." method="_on_tangible_timer_timeout"]

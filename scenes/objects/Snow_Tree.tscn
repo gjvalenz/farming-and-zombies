@@ -1,0 +1,60 @@
+[gd_scene load_steps=12 format=3 uid="uid://bfaph8km5b53h"]
+
+[ext_resource type="Script" path="res://scripts/abstract/ITree.gd" id="1_8s7p3"]
+[ext_resource type="Shader" path="res://shaders/snow_tree.gdshader" id="2_85ltp"]
+[ext_resource type="Texture2D" uid="uid://qj37xk7yrw3m" path="res://snow_tree.png" id="2_j1uu3"]
+[ext_resource type="PackedScene" uid="uid://2pj7qdc5p6ol" path="res://scenes/components/HealthComponent.tscn" id="3_mtlvl"]
+[ext_resource type="PackedScene" uid="uid://bikwcsu2fvao1" path="res://scenes/components/HurtboxComponent.tscn" id="4_2nve3"]
+[ext_resource type="PackedScene" uid="uid://da8r4kq30loxv" path="res://scenes/components/DropItemComponent.tscn" id="5_6t2rs"]
+[ext_resource type="PackedScene" uid="uid://bab1jlojllwsr" path="res://scenes/item_entities/Stump.tscn" id="6_tftio"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2w4u7"]
+shader = ExtResource("2_85ltp")
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fskp5"]
+radius = 18.0
+height = 36.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yuphp"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_4jdwr"]
+closed = false
+polygon = PackedVector2Array(-8, 0, 0, 9, -3, 12, 6, 10, 4, 6, 10, 2)
+
+[node name="SnowTree" type="StaticBody2D"]
+script = ExtResource("1_8s7p3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+material = SubResource("ShaderMaterial_2w4u7")
+texture = ExtResource("2_j1uu3")
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_mtlvl")]
+max_health = 10.0
+
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health") instance=ExtResource("4_2nve3")]
+position = Vector2(-44, -6)
+health = NodePath("../HealthComponent")
+accepts = Array[String](["axe"])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+z_index = 2
+position = Vector2(44, 6)
+shape = SubResource("CapsuleShape2D_fskp5")
+debug_color = Color(0.662745, 0.513726, 0, 0.419608)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+shape = SubResource("CapsuleShape2D_yuphp")
+
+[node name="DropItemComponent" parent="." instance=ExtResource("5_6t2rs")]
+item_entity = ExtResource("6_tftio")
+loot_method = 1
+max_count = 5
+random_drop_radius = 50.0
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+position = Vector2(-2, 0)
+occluder = SubResource("OccluderPolygon2D_4jdwr")
+
+[connection signal="on_dead" from="HealthComponent" to="." method="_on_health_component_on_dead"]

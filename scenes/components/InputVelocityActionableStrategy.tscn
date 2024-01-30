@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmty82a0yd1od"]
+
+[ext_resource type="Script" path="res://scripts/components/InputVelocityActionableStrategy.gd" id="1_lh6s0"]
+
+[node name="InputVelocityActionableStrategy" type="Node2D"]
+script = ExtResource("1_lh6s0")

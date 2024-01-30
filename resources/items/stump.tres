@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://eumeahlim4np"]
+
+[ext_resource type="Script" path="res://scripts/registries/Item.gd" id="1_2cp7x"]
+[ext_resource type="PackedScene" uid="uid://bab1jlojllwsr" path="res://scenes/item_entities/Stump.tscn" id="1_b6yaw"]
+
+[resource]
+script = ExtResource("1_2cp7x")
+name = "stump"
+display_name = "Stump"
+item_entity = ExtResource("1_b6yaw")

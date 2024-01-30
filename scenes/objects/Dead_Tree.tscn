@@ -1,0 +1,54 @@
+[gd_scene load_steps=10 format=3 uid="uid://2keo4xpdkf4d"]
+
+[ext_resource type="Script" path="res://scripts/abstract/ITree.gd" id="1_5rrhm"]
+[ext_resource type="Texture2D" uid="uid://s8iog8yipduh" path="res://dead_tree.png" id="2_5qj45"]
+[ext_resource type="PackedScene" uid="uid://2pj7qdc5p6ol" path="res://scenes/components/HealthComponent.tscn" id="3_w7868"]
+[ext_resource type="PackedScene" uid="uid://bikwcsu2fvao1" path="res://scenes/components/HurtboxComponent.tscn" id="4_5up5v"]
+[ext_resource type="PackedScene" uid="uid://da8r4kq30loxv" path="res://scenes/components/DropItemComponent.tscn" id="5_hjpq1"]
+[ext_resource type="PackedScene" uid="uid://bab1jlojllwsr" path="res://scenes/item_entities/Stump.tscn" id="6_7mahq"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pxr8e"]
+radius = 18.0
+height = 36.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rm828"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_arcgn"]
+closed = false
+polygon = PackedVector2Array(-8, 0, 0, 9, -3, 12, 6, 10, 4, 6, 10, 2)
+
+[node name="DeadTree" type="StaticBody2D"]
+script = ExtResource("1_5rrhm")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+texture = ExtResource("2_5qj45")
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_w7868")]
+max_health = 10.0
+
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health") instance=ExtResource("4_5up5v")]
+position = Vector2(-44, -6)
+health = NodePath("../HealthComponent")
+accepts = Array[String](["axe"])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+z_index = 2
+position = Vector2(45, 7)
+shape = SubResource("CapsuleShape2D_pxr8e")
+debug_color = Color(0.658824, 0.513726, 0, 0.419608)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 3)
+shape = SubResource("CapsuleShape2D_rm828")
+
+[node name="DropItemComponent" parent="." instance=ExtResource("5_hjpq1")]
+item_entity = ExtResource("6_7mahq")
+loot_method = 1
+max_count = 5
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+position = Vector2(0, 6)
+occluder = SubResource("OccluderPolygon2D_arcgn")
+
+[connection signal="body_entered" from="HurtboxComponent" to="HurtboxComponent" method="_on_body_entered"]

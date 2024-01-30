@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d4nvj13bkd6ud"]
+
+[ext_resource type="Script" path="res://scripts/components/PickupBoxComponent.gd" id="1_80wef"]
+
+[node name="PickupBoxComponent" type="Area2D"]
+script = ExtResource("1_80wef")

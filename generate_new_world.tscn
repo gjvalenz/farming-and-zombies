@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4iqucdb72v64"]
+
+[ext_resource type="Script" path="res://generate_new_world.gd" id="1_qooor"]
+
+[node name="Generate New World" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qooor")
+
+[node name="LineEdit" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 488.0
+offset_top = 273.0
+offset_right = 603.0
+offset_bottom = 304.0
+placeholder_text = "Seed Number (optional)"
+expand_to_text_length = true
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 537.0
+offset_top = 420.0
+offset_right = 622.0
+offset_bottom = 451.0
+text = "Generate!"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

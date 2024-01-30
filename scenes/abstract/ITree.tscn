@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://c6pdj0yxsorfj"]
+
+[ext_resource type="Script" path="res://scripts/abstract/ITree.gd" id="1_wi8sq"]
+[ext_resource type="PackedScene" uid="uid://2pj7qdc5p6ol" path="res://scenes/components/HealthComponent.tscn" id="3_7nbig"]
+[ext_resource type="PackedScene" uid="uid://bikwcsu2fvao1" path="res://scenes/components/HurtboxComponent.tscn" id="4_g05e1"]
+
+[node name="ITree" type="StaticBody2D"]
+script = ExtResource("1_wi8sq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 1
+position = Vector2(2, 7)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_7nbig")]
+
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health") instance=ExtResource("4_g05e1")]
+health = NodePath("../HealthComponent")
+accepts = Array[String](["axe"])
